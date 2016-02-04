@@ -1,0 +1,38 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ngrasset <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2016/01/19 14:48:52 by ngrasset          #+#    #+#              #
+#    Updated: 2016/01/19 16:08:07 by ngrasset         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+SRC = ft_readline.c 	rl_functions.c
+NAME = libft_rl.a
+INCLUDES = -I./includes -I../libft/includes
+CFLAGS = -Wall -Wextra -Werror
+OBJ = $(SRC:.c=.o)
+CC = gcc
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	ar -rcs $@ $^
+
+debug: $(OBJ)
+	$(CC) -c  $(INCLUDES) $(CFLAGS) srcs/debug.c
+	ar -rcs $(NAME) $^ debug.o
+	
+%.o: srcs/%.c
+	$(CC) -c  $(INCLUDES) $(CFLAGS) $^
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean $(NAME)
